@@ -20,3 +20,16 @@ def pregunta_10():
 
 
     """
+    fileInformation = open("files/input/data.csv", "r").readlines()
+    fileInformation = [line.replace("\n", "") for line in fileInformation]
+    fileInformation = [line.replace("\t", " ") for line in fileInformation]
+    fileInformation = [line.split(" ") for line in fileInformation]
+
+    resultado = []
+    for line in fileInformation:
+        resultado.append((line[0], len(line[3].split(",")), len(line[4].split(","))))
+
+    return resultado
+
+
+pregunta_10()

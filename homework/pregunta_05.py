@@ -6,6 +6,32 @@ utilizar pandas, numpy o scipy.
 """
 
 
+def obtenerValorMayorYMenor(sequence):
+    """
+    Retorna el valor mayor y menor de una secuencia de numeros.
+
+    Parameters:
+    sequence: list
+        Lista de numeros.
+
+    Returns:
+    tuple
+        Tupla con el valor mayor y menor de la secuencia.
+    """
+    groupedData = {}
+    for letter, number in sequence:
+        if letter not in groupedData:
+            groupedData[letter] = []
+        groupedData[letter].append(number)
+
+    tuplasMinimosMaximos = []
+    for letter in groupedData.keys():
+        (maximo, minimo) = (max(groupedData[letter]), min(groupedData[letter]))
+        tuplasMinimosMaximos.append((letter, int(maximo), int(minimo)))
+
+    return tuplasMinimosMaximos
+
+
 def pregunta_05():
     """
     Retorne una lista de tuplas con el valor maximo y minimo de la columna 2
@@ -15,3 +41,18 @@ def pregunta_05():
     [('A', 9, 2), ('B', 9, 1), ('C', 9, 0), ('D', 8, 3), ('E', 9, 1)]
 
     """
+    fileInformation = open("files/input/data.csv", "r").readlines()
+    fileInformation = [line.replace("\n", "") for line in fileInformation]
+    fileInformation = [line.replace("\t", ",") for line in fileInformation]
+    fileInformation = [line.split(",") for line in fileInformation]
+
+    lettersCountSeparated = [(line[0], line[1]) for line in fileInformation]
+
+    lettersCountSeparated = sorted(lettersCountSeparated)
+
+    lettersCountSeparated = obtenerValorMayorYMenor(lettersCountSeparated)
+
+    return lettersCountSeparated
+
+
+pregunta_05()

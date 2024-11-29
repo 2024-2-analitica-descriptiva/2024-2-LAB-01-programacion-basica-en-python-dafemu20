@@ -15,3 +15,25 @@ def pregunta_12():
     {'A': 177, 'B': 187, 'C': 114, 'D': 136, 'E': 324}
 
     """
+    fileInformation = open("files/input/data.csv", "r").readlines()
+    fileInformation = [line.replace("\n", "") for line in fileInformation]
+    fileInformation = [line.replace("\t", " ") for line in fileInformation]
+    fileInformation = [line.split(" ") for line in fileInformation]
+    fileInformation = [(line[0], line[4]) for line in fileInformation]
+    fileInformation = [(line[0], line[1].split(",")) for line in fileInformation]
+
+    groupedData = {}
+    for letter, numbers in fileInformation:
+        if letter not in groupedData:
+            groupedData[letter] = []
+        for number in numbers:
+            groupedData[letter].append(int(number.split(":")[1]))
+
+    resultado = {}
+    for letter in groupedData.keys():
+        resultado[letter] = sum(groupedData[letter])
+
+    return resultado
+
+
+pregunta_12()

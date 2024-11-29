@@ -24,3 +24,25 @@ def pregunta_09():
      'jjj': 18}}
 
     """
+    fileInformation = open("files/input/data.csv", "r").readlines()
+    fileInformation = [line.replace("\n", "") for line in fileInformation]
+    fileInformation = [line.split("\t") for line in fileInformation]
+
+    lettersCountSeparated = [line[4].split(",") for line in fileInformation]
+    lettersCountSeparated = [
+        item.split(":") for sublist in lettersCountSeparated for item in sublist
+    ]
+
+    groupedData = {}
+    for letter, number in lettersCountSeparated:
+        if letter not in groupedData:
+            groupedData[letter] = []
+        groupedData[letter].append(int(number))
+
+    resultado = {}
+    for letter in groupedData.keys():
+        resultado[letter] = len(groupedData[letter])
+
+    return resultado
+
+pregunta_09()
